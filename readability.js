@@ -23,7 +23,7 @@ var readability = {
   regexps: {
     unlikelyCandidates:    /ad|aside|combx|comment|community|disqus|extra|foot|header|menu|remark|rss|shoutbox|sidebar|sponsor|ad-break|agegate|pagination|pager|popup|tweet|twitter|figure|figcaption/i,
     okMaybeItsACandidate:  /and|article|body|column|main|shadow/i,
-    positive:              /article|body|content|entry|hentry|main|page|pagination|post|text|blog|story/i,
+    positive:              /article|body|content|content__main|entry|hentry|main|page|pagination|post|text|blog|story/i,
     negative:              /combx|comment|com-|contact|foot|footer|footnote|masthead|media|meta|outbrain|promo|related|scroll|shoutbox|sidebar|sponsor|shopping|tags|tool|widget/i,
     extraneous:            /print|archive|comment|discuss|e[\-]?mail|share|reply|all|login|sign|single/i,
     divToPElements:        /<(a|blockquote|dl|div|img|ol|p|pre|table|ul)/i,
@@ -459,7 +459,8 @@ var readability = {
      * the sieve approach gives us a higher likelihood of finding the
      * -right- content.
      **/
-    if(articleContent.textContent.length < 250) {
+    let length = articleContent.textContent.length
+    if (length < 250 || length > 19000) {
       page.innerHTML = pageCacheHtml;
 
       if (readability.flagIsActive(readability.FLAG_STRIP_UNLIKELYS)) {
